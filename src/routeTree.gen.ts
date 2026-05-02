@@ -9,9 +9,51 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VfRouteImport } from './routes/vf'
+import { Route as SopaRouteImport } from './routes/sopa'
+import { Route as ResultadosRouteImport } from './routes/resultados'
+import { Route as QuizRouteImport } from './routes/quiz'
+import { Route as ParejasRouteImport } from './routes/parejas'
+import { Route as OrdenarRouteImport } from './routes/ordenar'
+import { Route as MapaRouteImport } from './routes/mapa'
 import { Route as HubRouteImport } from './routes/hub'
 import { Route as IndexRouteImport } from './routes/index'
 
+const VfRoute = VfRouteImport.update({
+  id: '/vf',
+  path: '/vf',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SopaRoute = SopaRouteImport.update({
+  id: '/sopa',
+  path: '/sopa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResultadosRoute = ResultadosRouteImport.update({
+  id: '/resultados',
+  path: '/resultados',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuizRoute = QuizRouteImport.update({
+  id: '/quiz',
+  path: '/quiz',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParejasRoute = ParejasRouteImport.update({
+  id: '/parejas',
+  path: '/parejas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrdenarRoute = OrdenarRouteImport.update({
+  id: '/ordenar',
+  path: '/ordenar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MapaRoute = MapaRouteImport.update({
+  id: '/mapa',
+  path: '/mapa',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HubRoute = HubRouteImport.update({
   id: '/hub',
   path: '/hub',
@@ -26,31 +68,136 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/hub': typeof HubRoute
+  '/mapa': typeof MapaRoute
+  '/ordenar': typeof OrdenarRoute
+  '/parejas': typeof ParejasRoute
+  '/quiz': typeof QuizRoute
+  '/resultados': typeof ResultadosRoute
+  '/sopa': typeof SopaRoute
+  '/vf': typeof VfRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/hub': typeof HubRoute
+  '/mapa': typeof MapaRoute
+  '/ordenar': typeof OrdenarRoute
+  '/parejas': typeof ParejasRoute
+  '/quiz': typeof QuizRoute
+  '/resultados': typeof ResultadosRoute
+  '/sopa': typeof SopaRoute
+  '/vf': typeof VfRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/hub': typeof HubRoute
+  '/mapa': typeof MapaRoute
+  '/ordenar': typeof OrdenarRoute
+  '/parejas': typeof ParejasRoute
+  '/quiz': typeof QuizRoute
+  '/resultados': typeof ResultadosRoute
+  '/sopa': typeof SopaRoute
+  '/vf': typeof VfRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/hub'
+  fullPaths:
+    | '/'
+    | '/hub'
+    | '/mapa'
+    | '/ordenar'
+    | '/parejas'
+    | '/quiz'
+    | '/resultados'
+    | '/sopa'
+    | '/vf'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/hub'
-  id: '__root__' | '/' | '/hub'
+  to:
+    | '/'
+    | '/hub'
+    | '/mapa'
+    | '/ordenar'
+    | '/parejas'
+    | '/quiz'
+    | '/resultados'
+    | '/sopa'
+    | '/vf'
+  id:
+    | '__root__'
+    | '/'
+    | '/hub'
+    | '/mapa'
+    | '/ordenar'
+    | '/parejas'
+    | '/quiz'
+    | '/resultados'
+    | '/sopa'
+    | '/vf'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HubRoute: typeof HubRoute
+  MapaRoute: typeof MapaRoute
+  OrdenarRoute: typeof OrdenarRoute
+  ParejasRoute: typeof ParejasRoute
+  QuizRoute: typeof QuizRoute
+  ResultadosRoute: typeof ResultadosRoute
+  SopaRoute: typeof SopaRoute
+  VfRoute: typeof VfRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/vf': {
+      id: '/vf'
+      path: '/vf'
+      fullPath: '/vf'
+      preLoaderRoute: typeof VfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sopa': {
+      id: '/sopa'
+      path: '/sopa'
+      fullPath: '/sopa'
+      preLoaderRoute: typeof SopaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resultados': {
+      id: '/resultados'
+      path: '/resultados'
+      fullPath: '/resultados'
+      preLoaderRoute: typeof ResultadosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quiz': {
+      id: '/quiz'
+      path: '/quiz'
+      fullPath: '/quiz'
+      preLoaderRoute: typeof QuizRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parejas': {
+      id: '/parejas'
+      path: '/parejas'
+      fullPath: '/parejas'
+      preLoaderRoute: typeof ParejasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ordenar': {
+      id: '/ordenar'
+      path: '/ordenar'
+      fullPath: '/ordenar'
+      preLoaderRoute: typeof OrdenarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mapa': {
+      id: '/mapa'
+      path: '/mapa'
+      fullPath: '/mapa'
+      preLoaderRoute: typeof MapaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/hub': {
       id: '/hub'
       path: '/hub'
@@ -71,6 +218,13 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HubRoute: HubRoute,
+  MapaRoute: MapaRoute,
+  OrdenarRoute: OrdenarRoute,
+  ParejasRoute: ParejasRoute,
+  QuizRoute: QuizRoute,
+  ResultadosRoute: ResultadosRoute,
+  SopaRoute: SopaRoute,
+  VfRoute: VfRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

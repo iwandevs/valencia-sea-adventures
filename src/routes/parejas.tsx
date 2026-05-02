@@ -2,11 +2,10 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { ActivityHeader } from "@/components/ActivityHeader";
 import { useGame } from "@/context/GameContext";
-import { PAREJAS } from "@/data/oceanografic";
+import { useLang } from "@/context/LangContext";
+import { getData } from "@/data/oceanografic";
 
-export const Route = createFileRoute("/parejas")({
-  component: ParejasPage,
-});
+export const Route = createFileRoute("/parejas")({ component: ParejasPage });
 
 function shuffle<T>(arr: readonly T[]): T[] {
   const a = [...arr];
@@ -19,8 +18,10 @@ function shuffle<T>(arr: readonly T[]): T[] {
 
 function ParejasPage() {
   const { saveResult } = useGame();
+  const { t, lang } = useLang();
+  const { PAREJAS } = getData(lang);
   const navigate = useNavigate();
-  const habitats = useMemo(() => shuffle(PAREJAS.map((p) => p.habitat)), []);
+  const habitats = useMemo(() => shuffle(PAREJAS.map((p) => p.habitat)), [PAREJAS]);
   const animales = PAREJAS.map((p) => p.animal);
 
   const [selectedAnimal, setSelectedAnimal] = useState<string | null>(null);
@@ -51,15 +52,15 @@ function ParejasPage() {
 
   return (
     <main>
-      <ActivityHeader title="Une los conceptos" emoji="🔗" />
+      <ActivityHeader titleKey="act.parejas.title" emoji="🔗" />
       <div className="mx-auto max-w-4xl px-4 py-6">
         <p className="comic-card mb-5 bg-card p-4 text-center">
-          Toca un animal y luego su <strong>zona del Oceanogràfic</strong>. Errores: <strong>{errors}</strong>
+          <span dangerouslySetInnerHTML={{ __html: t("parejas.intro") }} /> <strong>{errors}</strong>
         </p>
 
         <div className="grid gap-6 md:grid-cols-2">
           <div className="space-y-3">
-            <h2 className="text-xl text-deep-foreground">🐠 Animales</h2>
+            <h2 className="text-xl text-deep-foreground">{t("parejas.animals")}</h2>
             {animales.map((a) => {
               const isMatched = !!matches[a];
               const isSelected = selectedAnimal === a;
@@ -80,7 +81,7 @@ function ParejasPage() {
           </div>
 
           <div className="space-y-3">
-            <h2 className="text-xl text-deep-foreground">🌊 Zonas</h2>
+            <h2 className="text-xl text-deep-foreground">{t("parejas.zones")}</h2>
             {habitats.map((h) => {
               const matchedAnimal = Object.entries(matches).find(([, hh]) => hh === h)?.[0];
               const isMatched = !!matchedAnimal;
@@ -106,12 +107,12 @@ function ParejasPage() {
         {allDone && (
           <div className="mt-6 text-center animate-pop-in">
             <div className="comic-card inline-block bg-coral px-6 py-4 text-coral-foreground">
-              <p className="text-xl">🎉 ¡Todas emparejadas!</p>
-              <p className="text-sm">Errores: {errors} · Aciertos: {Math.max(0, PAREJAS.length - errors)}/{PAREJAS.length}</p>
+              <p className="text-xl">{t("parejas.allDone")}</p>
+              <p className="text-sm">{t("parejas.errors")}: {errors} · {t("parejas.hits")}: {Math.max(0, PAREJAS.length - errors)}/{PAREJAS.length}</p>
             </div>
             <div className="mt-4">
               <button onClick={finish} className="bubble-btn bg-primary px-6 py-3 text-primary-foreground">
-                Continuar →
+                {t("common.continue")}
               </button>
             </div>
           </div>

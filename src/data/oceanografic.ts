@@ -13,7 +13,7 @@ export const ZONAS_ES = [
   { id: "artico", nombre: "Ártico", emoji: "🐻‍❄️", color: "primary" },
   { id: "islas", nombre: "Islas", emoji: "🦭", color: "coral" },
   { id: "delfinario", nombre: "Delfinario", emoji: "🐬", color: "primary" },
-] as const;
+];
 
 export const ZONAS_VA = [
   { id: "mediterraneo", nombre: "Mediterrani", emoji: "🐟", color: "secondary" },
@@ -25,7 +25,7 @@ export const ZONAS_VA = [
   { id: "artico", nombre: "Àrtic", emoji: "🐻‍❄️", color: "primary" },
   { id: "islas", nombre: "Illes", emoji: "🦭", color: "coral" },
   { id: "delfinario", nombre: "Delfinari", emoji: "🐬", color: "primary" },
-] as const;
+];
 
 export const QUIZ_ES = [
   { pregunta: "¿En qué ciudad se encuentra el Oceanogràfic?", opciones: ["Barcelona", "Valencia", "Sevilla", "Madrid"], correcta: 1 },
@@ -36,7 +36,7 @@ export const QUIZ_ES = [
   { pregunta: "¿Cuántas zonas o ecosistemas principales tiene el Oceanogràfic?", opciones: ["3", "5", "9", "15"], correcta: 2 },
   { pregunta: "¿Qué animal NO encontrarías en el Oceanogràfic?", opciones: ["Beluga", "Tiburón", "León", "Morsa"], correcta: 2 },
   { pregunta: "Las medusas pertenecen al grupo de los...", opciones: ["Peces", "Mamíferos", "Cnidarios (invertebrados)", "Reptiles"], correcta: 2 },
-] as const;
+];
 
 export const QUIZ_VA = [
   { pregunta: "En quina ciutat es troba l'Oceanogràfic?", opciones: ["Barcelona", "València", "Sevilla", "Madrid"], correcta: 1 },
@@ -47,7 +47,7 @@ export const QUIZ_VA = [
   { pregunta: "Quantes zones o ecosistemes principals té l'Oceanogràfic?", opciones: ["3", "5", "9", "15"], correcta: 2 },
   { pregunta: "Quin animal NO trobaries a l'Oceanogràfic?", opciones: ["Beluga", "Tauró", "Lleó", "Morsa"], correcta: 2 },
   { pregunta: "Les meduses pertanyen al grup dels...", opciones: ["Peixos", "Mamífers", "Cnidaris (invertebrats)", "Rèptils"], correcta: 2 },
-] as const;
+];
 
 export const VF_ES = [
   { afirmacion: "Los delfines son mamíferos, no peces.", correcta: true },
@@ -58,7 +58,7 @@ export const VF_ES = [
   { afirmacion: "Los flamencos son rosas porque comen crustáceos.", correcta: true },
   { afirmacion: "Las morsas viven en aguas tropicales.", correcta: false },
   { afirmacion: "El pulpo tiene tres corazones.", correcta: true },
-] as const;
+];
 
 export const VF_VA = [
   { afirmacion: "Els dofins són mamífers, no peixos.", correcta: true },
@@ -69,7 +69,7 @@ export const VF_VA = [
   { afirmacion: "Els flamencs són rosa perquè mengen crustacis.", correcta: true },
   { afirmacion: "Les morses viuen en aigües tropicals.", correcta: false },
   { afirmacion: "El polp té tres cors.", correcta: true },
-] as const;
+];
 
 export const PAREJAS_ES = [
   { animal: "🐧 Pingüino", habitat: "Antártico" },
@@ -78,7 +78,7 @@ export const PAREJAS_ES = [
   { animal: "🦩 Flamenco", habitat: "Humedales" },
   { animal: "🐻‍❄️ Beluga", habitat: "Ártico" },
   { animal: "🐡 Pez globo", habitat: "Mares Tropicales" },
-] as const;
+];
 
 export const PAREJAS_VA = [
   { animal: "🐧 Pingüí", habitat: "Antàrtic" },
@@ -87,11 +87,11 @@ export const PAREJAS_VA = [
   { animal: "🦩 Flamenc", habitat: "Aiguamolls" },
   { animal: "🐻‍❄️ Beluga", habitat: "Àrtic" },
   { animal: "🐡 Peix globus", habitat: "Mars Tropicals" },
-] as const;
+];
 
 // Sopa de letras (mismas palabras válidas en ambos idiomas, son nombres reconocibles)
-export const SOPA_ES = ["DELFIN", "TIBURON", "MEDUSA", "PULPO", "CORAL", "BELUGA", "MORSA", "RAYA"] as const;
-export const SOPA_VA = ["DOFI", "TAURO", "MEDUSA", "POLP", "CORAL", "BELUGA", "MORSA", "RAJADA"] as const;
+export const SOPA_ES = ["DELFIN", "TIBURON", "MEDUSA", "PULPO", "CORAL", "BELUGA", "MORSA", "RAYA"];
+export const SOPA_VA = ["DOFI", "TAURO", "MEDUSA", "POLP", "CORAL", "BELUGA", "MORSA", "RAJADA"];
 
 export const CADENA_ES = [
   { id: "1", nombre: "Plancton", emoji: "🦠", orden: 1 },
@@ -99,7 +99,7 @@ export const CADENA_ES = [
   { id: "3", nombre: "Sardina", emoji: "🐟", orden: 3 },
   { id: "4", nombre: "Atún", emoji: "🐠", orden: 4 },
   { id: "5", nombre: "Tiburón", emoji: "🦈", orden: 5 },
-] as const;
+];
 
 export const CADENA_VA = [
   { id: "1", nombre: "Plàncton", emoji: "🦠", orden: 1 },
@@ -107,7 +107,7 @@ export const CADENA_VA = [
   { id: "3", nombre: "Sardina", emoji: "🐟", orden: 3 },
   { id: "4", nombre: "Tonyina", emoji: "🐠", orden: 4 },
   { id: "5", nombre: "Tauró", emoji: "🦈", orden: 5 },
-] as const;
+];
 
 export const PREGUNTAS_ZONA_ES: Record<string, { pregunta: string; opciones: string[]; correcta: number }> = {
   mediterraneo: { pregunta: "¿Qué pez típico vive en el Mediterráneo?", opciones: ["Pingüino", "Dorada", "Beluga"], correcta: 1 },

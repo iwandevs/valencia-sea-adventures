@@ -1,8 +1,6 @@
 import { Outlet, createRootRoute, HeadContent, Scripts, Link } from "@tanstack/react-router";
 import { GameProvider } from "@/context/GameContext";
-import { LangProvider } from "@/context/LangContext";
 import { Bubbles } from "@/components/Bubbles";
-import { LangSwitch } from "@/components/LangSwitch";
 
 import appCss from "../styles.css?url";
 
@@ -30,8 +28,16 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Aventura en el Oceanogràfic — Actividades 6º Primaria" },
+      { title: "Aventura en el Oceanogràfic" },
       { name: "description", content: "Aplicación interactiva con actividades para descubrir el Oceanogràfic de Valencia." },
+      { property: "og:title", content: "Aventura en el Oceanogràfic" },
+      { name: "twitter:title", content: "Aventura en el Oceanogràfic" },
+      { property: "og:description", content: "Aplicación interactiva con actividades para descubrir el Oceanogràfic de Valencia." },
+      { name: "twitter:description", content: "Aplicación interactiva con actividades para descubrir el Oceanogràfic de Valencia." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2f291c20-6d97-424c-bf7f-fede8ec2b879/id-preview-8c698b82--fcceca5c-457f-4cdd-aa28-e6bfaa02635b.lovable.app-1777709578343.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2f291c20-6d97-424c-bf7f-fede8ec2b879/id-preview-8c698b82--fcceca5c-457f-4cdd-aa28-e6bfaa02635b.lovable.app-1777709578343.png" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:type", content: "website" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -61,14 +67,11 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   return (
-    <LangProvider>
-      <GameProvider>
-        <Bubbles />
-        <LangSwitch />
-        <div className="relative z-10 min-h-screen">
-          <Outlet />
-        </div>
-      </GameProvider>
-    </LangProvider>
+    <GameProvider>
+      <Bubbles />
+      <div className="relative z-10 min-h-screen">
+        <Outlet />
+      </div>
+    </GameProvider>
   );
 }

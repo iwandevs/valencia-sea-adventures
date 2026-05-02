@@ -2,26 +2,11 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { ActivityHeader } from "@/components/ActivityHeader";
 import { useGame } from "@/context/GameContext";
-import { ZONAS } from "@/data/oceanografic";
+import { useLang } from "@/context/LangContext";
+import { getData } from "@/data/oceanografic";
 
-export const Route = createFileRoute("/mapa")({
-  component: MapaPage,
-});
+export const Route = createFileRoute("/mapa")({ component: MapaPage });
 
-// Preguntas asociadas a cada zona
-const PREGUNTAS_ZONA: Record<string, { pregunta: string; opciones: string[]; correcta: number }> = {
-  mediterraneo: { pregunta: "¿Qué pez típico vive en el Mediterráneo?", opciones: ["Pingüino", "Dorada", "Beluga"], correcta: 1 },
-  humedales: { pregunta: "¿Qué ave característica hay en los Humedales?", opciones: ["Flamenco", "Águila", "Loro"], correcta: 0 },
-  templados: { pregunta: "¿Qué temperatura tienen los mares templados?", opciones: ["Muy fría", "Intermedia", "Hirviendo"], correcta: 1 },
-  tropicales: { pregunta: "¿Qué se forma en los mares tropicales?", opciones: ["Icebergs", "Arrecifes de coral", "Volcanes"], correcta: 1 },
-  oceanos: { pregunta: "¿Qué hay en la zona de Océanos del Oceanogràfic?", opciones: ["Pingüinos", "Túnel de tiburones", "Flamencos"], correcta: 1 },
-  antartico: { pregunta: "¿Qué animal famoso vive en el Antártico?", opciones: ["Pingüino", "Camello", "Tigre"], correcta: 0 },
-  artico: { pregunta: "¿Qué ballena blanca vive en el Ártico del acuario?", opciones: ["Orca", "Beluga", "Cachalote"], correcta: 1 },
-  islas: { pregunta: "¿Qué mamíferos marinos viven en Islas?", opciones: ["Leones marinos", "Tiburones", "Medusas"], correcta: 0 },
-  delfinario: { pregunta: "¿Qué hace especial al Delfinario del Oceanogràfic?", opciones: ["Es el más pequeño", "Es uno de los más grandes de Europa", "No tiene delfines"], correcta: 1 },
-};
-
-// Posiciones de las zonas en el mapa (porcentajes)
 const POSICIONES: Record<string, { x: number; y: number }> = {
   artico: { x: 18, y: 18 },
   antartico: { x: 78, y: 22 },
@@ -36,6 +21,8 @@ const POSICIONES: Record<string, { x: number; y: number }> = {
 
 function MapaPage() {
   const { saveResult } = useGame();
+  const { t, lang } = useLang();
+  const { ZONAS, PREGUNTAS_ZONA } = getData(lang);
   const navigate = useNavigate();
   const [activeZone, setActiveZone] = useState<string | null>(null);
   const [answered, setAnswered] = useState<Record<string, boolean>>({});
@@ -64,14 +51,13 @@ function MapaPage() {
 
   return (
     <main>
-      <ActivityHeader title="Mapa interactivo" emoji="🗺️" />
+      <ActivityHeader titleKey="act.mapa.title" emoji="🗺️" />
       <div className="mx-auto max-w-5xl px-4 py-6">
         <p className="comic-card mb-5 bg-card p-4 text-center">
-          Haz clic en cada <strong>zona del Oceanogràfic</strong> y responde su pregunta. {completed}/{total} · ⭐ {score}
+          <span dangerouslySetInnerHTML={{ __html: t("mapa.intro") }} /> {completed}/{total} · ⭐ {score}
         </p>
 
         <div className="comic-card relative overflow-hidden bg-gradient-to-b from-secondary/40 to-primary/20" style={{ aspectRatio: "16/10" }}>
-          {/* Decoración fondo */}
           <div className="absolute inset-0 opacity-30 pointer-events-none">
             <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-deep/40 to-transparent" />
           </div>
@@ -84,10 +70,10 @@ function MapaPage() {
             return (
               <button
                 key={z.id}
-                onClick={() => !done && setActiveZone(z.id)}
-                disabled={!!done}
+                onClick={() => !(z.id in answered) && setActiveZone(z.id)}
+                disabled={z.id in answered}
                 style={{ left: `${pos.x}%`, top: `${pos.y}%` }}
-                className={`absolute -translate-x-1/2 -translate-y-1/2 group flex flex-col items-center gap-1 ${done ? "" : "animate-bob"}`}
+                className={`absolute -translate-x-1/2 -translate-y-1/2 group flex flex-col items-center gap-1 ${(z.id in answered) ? "" : "animate-bob"}`}
               >
                 <div className={`flex h-14 w-14 items-center justify-center rounded-full border-3 border-foreground text-2xl shadow-bubble transition-transform group-hover:scale-110 ${
                   isCorrect ? "bg-success" : isWrong ? "bg-destructive" : "bg-card"
@@ -102,7 +88,6 @@ function MapaPage() {
           })}
         </div>
 
-        {/* Modal pregunta */}
         {activeZone && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-deep/70 p-4 animate-pop-in">
             <div className="comic-card w-full max-w-lg bg-card p-6">
@@ -137,7 +122,7 @@ function MapaPage() {
         {completed === total && (
           <div className="mt-6 text-center animate-pop-in">
             <button onClick={finish} className="bubble-btn bg-coral px-8 py-4 text-lg text-coral-foreground">
-              🏁 Terminar — {score}/{total} aciertos
+              {t("mapa.finish")} {score}/{total} {t("mapa.hits")}
             </button>
           </div>
         )}

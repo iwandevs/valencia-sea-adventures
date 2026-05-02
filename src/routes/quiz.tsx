@@ -2,15 +2,16 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { ActivityHeader } from "@/components/ActivityHeader";
 import { useGame } from "@/context/GameContext";
-import { QUIZ } from "@/data/oceanografic";
+import { useLang } from "@/context/LangContext";
+import { getData } from "@/data/oceanografic";
 import { CheckCircle2, XCircle } from "lucide-react";
 
-export const Route = createFileRoute("/quiz")({
-  component: QuizPage,
-});
+export const Route = createFileRoute("/quiz")({ component: QuizPage });
 
 function QuizPage() {
   const { saveResult } = useGame();
+  const { t, lang } = useLang();
+  const { QUIZ } = getData(lang);
   const navigate = useNavigate();
   const [idx, setIdx] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
@@ -32,8 +33,7 @@ function QuizPage() {
       setIdx(idx + 1);
       setSelected(null);
     } else {
-      const finalScore = score;
-      saveResult("quiz", { correct: finalScore, total: QUIZ.length });
+      saveResult("quiz", { correct: score, total: QUIZ.length });
       setDone(true);
     }
   };
@@ -41,16 +41,16 @@ function QuizPage() {
   if (done) {
     return (
       <main>
-        <ActivityHeader title="Cuestionario" emoji="❓" />
+        <ActivityHeader titleKey="act.quiz.title" emoji="❓" />
         <div className="mx-auto max-w-xl px-4 py-10">
           <div className="comic-card animate-pop-in p-8 text-center">
             <div className="text-7xl">🎉</div>
-            <h2 className="mt-3 text-3xl text-primary">¡Completado!</h2>
+            <h2 className="mt-3 text-3xl text-primary">{t("common.completed")}</h2>
             <p className="mt-2 text-lg">
-              Has acertado <strong>{score}</strong> de <strong>{QUIZ.length}</strong>
+              {t("common.youGot")} <strong>{score}</strong> {t("common.of")} <strong>{QUIZ.length}</strong>
             </p>
             <button onClick={() => navigate({ to: "/hub" })} className="bubble-btn mt-6 bg-coral px-6 py-3 text-coral-foreground">
-              Volver al mapa
+              {t("common.back")}
             </button>
           </div>
         </div>
@@ -60,10 +60,10 @@ function QuizPage() {
 
   return (
     <main>
-      <ActivityHeader title="Cuestionario" emoji="❓" />
+      <ActivityHeader titleKey="act.quiz.title" emoji="❓" />
       <div className="mx-auto max-w-2xl px-4 py-6">
         <div className="mb-4 flex items-center justify-between text-deep-foreground">
-          <span className="text-sm">Pregunta {idx + 1} / {QUIZ.length}</span>
+          <span className="text-sm">{t("common.question")} {idx + 1} / {QUIZ.length}</span>
           <span className="text-sm">⭐ {score}</span>
         </div>
         <div className="mb-4 h-3 overflow-hidden rounded-full border-2 border-foreground bg-card">
@@ -98,10 +98,10 @@ function QuizPage() {
           {showResult && (
             <div className="mt-5 flex items-center justify-between">
               <p className={`font-semibold ${isCorrect ? "text-success" : "text-destructive"}`}>
-                {isCorrect ? "¡Correcto! 🐠" : "¡Casi! Sigue intentando 🐡"}
+                {isCorrect ? t("common.correct") : t("common.almost")}
               </p>
               <button onClick={next} className="bubble-btn bg-primary px-5 py-2 text-primary-foreground">
-                {idx < QUIZ.length - 1 ? "Siguiente →" : "Terminar"}
+                {idx < QUIZ.length - 1 ? t("common.next") : t("common.finish")}
               </button>
             </div>
           )}

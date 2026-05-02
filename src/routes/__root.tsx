@@ -1,6 +1,8 @@
 import { Outlet, createRootRoute, HeadContent, Scripts, Link } from "@tanstack/react-router";
 import { GameProvider } from "@/context/GameContext";
+import { LangProvider } from "@/context/LangContext";
 import { Bubbles } from "@/components/Bubbles";
+import { LangSwitch } from "@/components/LangSwitch";
 
 import appCss from "../styles.css?url";
 
@@ -59,11 +61,14 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   return (
-    <GameProvider>
-      <Bubbles />
-      <div className="relative z-10 min-h-screen">
-        <Outlet />
-      </div>
-    </GameProvider>
+    <LangProvider>
+      <GameProvider>
+        <Bubbles />
+        <LangSwitch />
+        <div className="relative z-10 min-h-screen">
+          <Outlet />
+        </div>
+      </GameProvider>
+    </LangProvider>
   );
 }

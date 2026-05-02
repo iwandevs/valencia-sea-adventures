@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useGame } from "@/context/GameContext";
+import { useLang } from "@/context/LangContext";
 import heroImg from "@/assets/hero-ocean.jpg";
 
 export const Route = createFileRoute("/")({
@@ -9,6 +10,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const { setStudentName } = useGame();
+  const { t } = useLang();
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [error, setError] = useState("");
@@ -17,7 +19,7 @@ function Index() {
     e.preventDefault();
     const trimmed = name.trim();
     if (trimmed.length < 2) {
-      setError("Escribe tu nombre (al menos 2 letras)");
+      setError(t("app.nameError"));
       return;
     }
     setStudentName(trimmed);
@@ -31,7 +33,7 @@ function Index() {
           <div className="comic-card overflow-hidden">
             <img
               src={heroImg}
-              alt="Ilustración cómic del Oceanogràfic con tiburón, peces y corales"
+              alt="Oceanogràfic"
               width={1536}
               height={896}
               className="h-full w-full object-cover"
@@ -41,27 +43,25 @@ function Index() {
 
         <div className="comic-card animate-pop-in space-y-5 bg-card p-6 sm:p-8">
           <span className="inline-block rounded-full bg-coral px-4 py-1 text-sm text-coral-foreground">
-            🌊 Aventura submarina
+            {t("app.tagline")}
           </span>
-          <h1 className="text-4xl leading-tight text-primary sm:text-5xl">
-            ¡Descubre el<br />Oceanogràfic!
-          </h1>
+          <h1 className="text-4xl leading-tight text-primary sm:text-5xl" dangerouslySetInnerHTML={{ __html: t("app.title") }} />
           <p className="text-base text-muted-foreground">
-            Una misión interactiva por el acuario más grande de Europa.
+            {t("app.intro")}
             <br />
-            <strong>6 actividades</strong> · ⏱️ ~40 minutos
+            <span dangerouslySetInnerHTML={{ __html: t("app.meta") }} />
           </p>
 
           <form onSubmit={start} className="space-y-3 pt-2">
             <label className="block text-sm font-semibold" htmlFor="name">
-              ¿Cuál es tu nombre, explorador/a?
+              {t("app.namePrompt")}
             </label>
             <input
               id="name"
               type="text"
               value={name}
               onChange={(e) => { setName(e.target.value); setError(""); }}
-              placeholder="Escribe aquí tu nombre"
+              placeholder={t("app.namePh")}
               className="w-full rounded-2xl border-3 border-foreground bg-background px-4 py-3 text-lg outline-none focus:ring-4 focus:ring-secondary"
               style={{ borderWidth: 3 }}
               maxLength={30}
@@ -72,12 +72,12 @@ function Index() {
               type="submit"
               className="bubble-btn w-full bg-coral px-6 py-4 text-lg text-coral-foreground"
             >
-              🚀 ¡Empezar la aventura!
+              {t("app.start")}
             </button>
           </form>
 
           <p className="text-xs text-muted-foreground">
-            Información basada en{" "}
+            {t("app.source")}{" "}
             <a className="underline" href="https://www.oceanografic.org/" target="_blank" rel="noreferrer">
               oceanografic.org
             </a>

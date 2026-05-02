@@ -1,12 +1,11 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { ActivityHeader } from "@/components/ActivityHeader";
 import { useGame } from "@/context/GameContext";
-import { CADENA } from "@/data/oceanografic";
+import { useLang } from "@/context/LangContext";
+import { getData } from "@/data/oceanografic";
 
-export const Route = createFileRoute("/ordenar")({
-  component: OrdenarPage,
-});
+export const Route = createFileRoute("/ordenar")({ component: OrdenarPage });
 
 function shuffle<T>(arr: readonly T[]): T[] {
   const a = [...arr];
@@ -19,6 +18,8 @@ function shuffle<T>(arr: readonly T[]): T[] {
 
 function OrdenarPage() {
   const { saveResult } = useGame();
+  const { t, lang } = useLang();
+  const { CADENA } = getData(lang);
   const navigate = useNavigate();
   const [items, setItems] = useState(() => shuffle(CADENA));
   const [checked, setChecked] = useState<null | { correct: number }>(null);
@@ -49,12 +50,9 @@ function OrdenarPage() {
 
   return (
     <main>
-      <ActivityHeader title="Cadena alimentaria" emoji="🔢" />
+      <ActivityHeader titleKey="act.ordenar.title" emoji="🔢" />
       <div className="mx-auto max-w-2xl px-4 py-6">
-        <p className="comic-card mb-5 bg-card p-4 text-center">
-          Ordena de <strong>presa</strong> (abajo de la cadena) a <strong>gran depredador</strong> (arriba).
-          <br />Usa las flechas ▲▼ para colocar cada animal.
-        </p>
+        <p className="comic-card mb-5 bg-card p-4 text-center" dangerouslySetInnerHTML={{ __html: t("ordenar.intro") }} />
 
         <div className="space-y-3">
           {items.map((it, i) => {
@@ -83,16 +81,16 @@ function OrdenarPage() {
 
         <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
           <button onClick={check} className="bubble-btn bg-primary px-6 py-3 text-primary-foreground">
-            ✓ Comprobar
+            {t("ordenar.check")}
           </button>
           {checked && (
             <div className="comic-card bg-card px-4 py-2">
-              {allCorrect ? "🎉 ¡Perfecto!" : `${checked.correct}/${items.length} en su sitio`}
+              {allCorrect ? t("ordenar.perfect") : `${checked.correct}/${items.length} ${t("ordenar.inPlace")}`}
             </div>
           )}
           {checked && (
             <button onClick={finish} className="bubble-btn bg-coral px-6 py-3 text-coral-foreground">
-              Continuar →
+              {t("common.continue")}
             </button>
           )}
         </div>

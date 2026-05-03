@@ -1,6 +1,8 @@
 # Valencia Sea Adventures
 
-Aplicación educativa interactiva inspirada en la fauna marina, los hábitats acuáticos y la experiencia de visita al Oceanogràfic de València, diseñada para una sesión de informática de **6º de Primaria**.
+🌊 Aplicación educativa interactiva inspirada en la fauna marina, los hábitats acuáticos y la experiencia de visita al Oceanogràfic de València, diseñada para una sesión de informática de **6º de Primaria**.
+
+🔗 **Demo online:** [valencia-sea-adventures.lovable.app](https://valencia-sea-adventures.lovable.app/)
 
 El objetivo del proyecto es que el alumnado aprenda contenidos relacionados con animales marinos, ecosistemas, conservación del medio ambiente y orientación visual mediante distintas actividades digitales interactivas.
 

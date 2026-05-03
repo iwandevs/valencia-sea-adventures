@@ -69,11 +69,14 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   return (
-    <GameProvider>
-      <Bubbles />
-      <div className="relative z-10 min-h-screen">
-        <Outlet />
-      </div>
-    </GameProvider>
+    <LangProvider>
+      <GameProvider>
+        <Bubbles />
+        <LangSwitch />
+        <div className="relative z-10 min-h-screen">
+          <Outlet />
+        </div>
+      </GameProvider>
+    </LangProvider>
   );
 }

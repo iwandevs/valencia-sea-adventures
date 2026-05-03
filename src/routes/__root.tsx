@@ -1,5 +1,7 @@
 import { Outlet, createRootRoute, HeadContent, Scripts, Link } from "@tanstack/react-router";
 import { GameProvider } from "@/context/GameContext";
+import { LangProvider } from "@/context/LangContext";
+import { LangSwitch } from "@/components/LangSwitch";
 import { Bubbles } from "@/components/Bubbles";
 
 import appCss from "../styles.css?url";
